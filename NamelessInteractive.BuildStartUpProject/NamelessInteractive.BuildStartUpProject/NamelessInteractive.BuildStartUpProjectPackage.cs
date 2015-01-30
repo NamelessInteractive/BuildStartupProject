@@ -162,10 +162,14 @@ namespace NamelessInteractive.NamelessInteractive_BuildStartUpProject
         {
             // Show a Message Box to prove we were here
             EnvDTE80.DTE2 dte = Package.GetGlobalService(typeof(SDTE)) as EnvDTE80.DTE2;
+            
+            
             var project = GetStartupProject(dte);
             if (project != null) 
             {
-                dte.Solution.SolutionBuild.BuildProject(project.ConfigurationManager.ActiveConfiguration.ConfigurationName,project.UniqueName);
+                dte.ToolWindows.OutputWindow.Parent.Activate();
+                dte.Solution.SolutionBuild.BuildProject(project.ConfigurationManager.ActiveConfiguration.ConfigurationName,project.UniqueName,true);
+                dte.ToolWindows.ErrorList.Parent.Activate();
             }
         }
     }
